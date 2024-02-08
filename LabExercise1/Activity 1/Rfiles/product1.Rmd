@@ -1,0 +1,90 @@
+---
+title: "Lab Exercise 1"
+author: "Jonash Lor Defensor"
+date: "2024-02-08"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+install.packages("rvest")
+```
+
+```{r}
+library(rvest)
+library(polite)
+```
+
+```{r}
+url <- "https://www.amazon.co.uk/s?k=BLANKET&crid=2RO3HTK4QH6JL&sprefix=blanket%2Caps%2C300&ref=nb_sb_noss_1"
+```
+
+```{r}
+session <- bow(url, user_agent = "Educational Purposes Only")
+session
+session_page <- scrape(session)
+```
+```{r}
+div_elements <- html_nodes(session_page,'div.s-desktop-width-max.s-desktop-content.s-opposite-dir.s-wide-grid-style.sg-row')
+
+```
+```{r}
+brand_descriptions <- character()
+prices <- character()
+review_counts <- character()
+ratings <- character()
+```
+```{r}
+product_count <- 100
+```
+
+```{r}
+for (div_element in div_elements) {
+
+  brand_element <- html_node(div_element, 'a-size-base-plus a-color-base a-text-normal')
+  brand <- ifelse(!is.na(brand_element), html_text(brand_element), '')
+
+  description_element <- html_node(div_element, 'div.a-section.a-spacing-small')
+  description <- ifelse(!is.na(description_element), html_text(description_element), '')
+  
+  price_element <- html_node(div_element, 'span.a-price-whole')
+  price <- ifelse(!is.na(price_element), html_text(price_element), '')
+  
+  review_count_element <- html_node(div_element, 'span.a-size-base')
+  review_count <- ifelse(!is.na(review_count_element), html_text(review_count_element), '')
+  
+  
+  rating_element <- html_node(div_element, 'span.a-icon-alt')
+  rating <- ifelse(!is.na(rating_element), html_text(rating_element), '')
+  
+  brand_description <- paste(brand, description)
+  brand_descriptions <- c(brand_descriptions, brand_description)
+  prices <- c(prices, price)
+  review_counts <- c(review_counts, review_count)
+  ratings <- c(ratings, rating)
+}
+```  
+```{r}
+product_df1 <- data.frame(Brand_Description = brand_descriptions,
+                          Price = prices,
+                          Review_Count = review_counts,
+                          Rating = ratings)
+```
+```{r}
+write.csv(product_df1, "FirstItem.csv")
+```
+```{r}
+product_df1$Category <- "Blanket"
+```
+```{r}
+product_df1 <- product_df1[, c("Category", names(product_df1)[-which(names(product_df1) == "Category")])]
+```
+```{r}
+write.csv(product_df1, "Product1.csv", row.names = FALSE)
+```
+```{r}
+View(Product1)
+```
