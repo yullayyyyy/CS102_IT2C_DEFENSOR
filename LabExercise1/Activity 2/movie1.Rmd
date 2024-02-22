@@ -1,0 +1,61 @@
+---
+title: "lab_exercise#2_Defensor"
+author: "Jonash Lor Defensor"
+date: "2024-02-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+install.packages("dplyr")
+install.packages("rvest")
+install.packages("httr")
+install.packages("polite")
+
+```{r}
+library(polite)
+library(rvest)
+library(httr)
+library(dplyr)
+
+#movie1
+url1 <-"https://www.imdb.com/title/tt14044212/reviews?ref_=tt_urv"
+
+session1 <- bow(url1, user_agent = "Educational Purposes")
+session1 <- scrape(session1)  
+
+reviewer1 <- session1 %>%
+html_nodes (".display-name-link a")%>%
+html_text()
+reviewer1 <- reviewer1 [1:25]
+reviewer1
+
+date <- session1 %>%
+html_nodes ("div.lister-item:nth-of-type(n+2) span.review-date")%>%
+html_text()
+date <-date[1:25]
+date
+
+stars3 <- session1 %>%
+html_nodes ("span.rating-other-user-rating")%>%
+html_text()
+stars3 <- stars3 [1:25]
+stars3
+
+title_review_itself <- session1 %>%
+html_nodes ("a.title")%>%
+html_text()
+title_review_itself <- title_review_itself [1:25]
+title_review_itself
+
+movie_df <- data.frame(
+  Reviewer = reviewer1,
+  Review_Date = date,
+  Stars = stars3,
+  Review_Title = title_review_itself
+)
+
+View(movie_df)
+```
