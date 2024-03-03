@@ -918,7 +918,7 @@ session1 <- bow(link20, user_agent = "Educational Purpose")
 
   
   movie20 <- rbind(movie20, data.frame(
-    prod_name = MovieName,
+    movie_name = MovieName,
     title = scrapedTitle,
     reviewer = scrapedReviewer,
     review = scrapedReview,
@@ -931,6 +931,466 @@ session1 <- bow(link20, user_agent = "Educational Purpose")
 }
 
 View(movie20)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie21 <- data.frame()
+
+for (page in 1:5) {
+link21 <- paste0("https://www.imdb.com/title/tt15239678/reviews?ref_=tt_urv")
+session1 <- bow(link21, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "Dune: Part Two (2024)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie21 <- rbind(movie21, data.frame(
+    prod_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie21)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie22 <- data.frame()
+
+for (page in 1:5) {
+link22 <- paste0("https://www.imdb.com/title/tt11097384/reviews?ref_=tt_urv")
+session1 <- bow(link22, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "Spaceman (I) (2024)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie22 <- rbind(movie22, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie22)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie23 <- data.frame()
+
+for (page in 1:5) {
+link23 <- paste0("https://www.imdb.com/title/tt3850598/reviews?ref_=tt_urv")
+session1 <- bow(link23, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "BMF (2021)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie23 <- rbind(movie23, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie23)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie24 <- data.frame()
+
+for (page in 1:5) {
+link24 <- paste0("https://www.imdb.com/title/tt2788316/reviews?ref_=tt_urv")
+session1 <- bow(link24, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "Shōgun (2024)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie24 <- rbind(movie24, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie24)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie25 <- data.frame()
+
+for (page in 1:5) {
+link25 <- paste0("https://www.imdb.com/title/tt16277242/reviews?ref_=tt_urv")
+session1 <- bow(link25, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "Society of the Snow (2023)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie25 <- rbind(movie25, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie25)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie26 <- data.frame()
+
+for (page in 1:5) {
+link26 <- paste0("https://www.imdb.com/title/tt21064584/reviews?ref_=tt_urv")
+session1 <- bow(link26, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "The Iron Claw (2023)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie26 <- rbind(movie26, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie26)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie27 <- data.frame()
+
+for (page in 1:5) {
+link27 <- paste0("https://www.imdb.com/title/tt28184392/reviews?ref_=tt_urv")
+session1 <- bow(link27, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "Chamak (2023)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie27 <- rbind(movie27, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie27)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie28 <- data.frame()
+
+for (page in 1:5) {
+link28 <- paste0("https://www.imdb.com/title/tt13238346/reviews?ref_=tt_urv")
+session1 <- bow(link28, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "Past Lives (2023)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie28 <- rbind(movie28, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie28)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie29 <- data.frame()
+
+for (page in 1:5) {
+link29 <- paste0("https://www.imdb.com/title/tt21192142/reviews?ref_=tt_urv")
+session1 <- bow(link29, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "All of Us Strangers (2023)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie29 <- rbind(movie29, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie29)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+movie30 <- data.frame()
+
+for (page in 1:5) {
+link30 <- paste0("https://www.imdb.com/title/tt23561236/reviews?ref_=tt_urv")
+session1 <- bow(link30, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    MovieName <- "American Fiction (2023)"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   scrapedType <- scrapeNodes(".sc-ab73d3b3-1a.ipc-metadata-list-item__list-content-item")[1:10]
+
+  
+  movie30 <- rbind(movie30, data.frame(
+    movie_name = MovieName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_movies = scrapedType
+  ))
+
+
+}
+
+View(movie30)
 
 ```
 
