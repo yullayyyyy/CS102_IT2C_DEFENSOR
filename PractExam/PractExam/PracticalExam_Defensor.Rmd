@@ -1,0 +1,94 @@
+---
+title: "CS 101 (Data Preparation) Practical Exam"
+author: "Jonash Lor Defensor"
+date: "2024-03-07"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+A. Load the built-in warpbreaks dataset.
+
+#1. Find out, in a single command, which columns of warpbreaks are either numeric or integer. What are the data types of each column?
+
+```{r}
+numeric_columns <- sapply(warpbreaks, function(x) is.numeric(x) || is.integer(x))
+print(numeric_columns)
+```
+# 2. How many observations does it have?
+```{r}
+warpbreaks[, numeric_columns] <- sapply(warpbreaks[, numeric_columns], as.integer)
+print(warpbreaks)
+```
+# 3. Is numeric a natural data type for the columns which are stored as such? Convert to integer when necessary.
+Answer: Yes
+```{r}
+numeric <- as.integer(warpbreaks$breaks)
+```
+# 4. Error in 1:ncol(numeric_or_integer_columns) : argument of length 0
+
+B. Load the exampleFile.txt
+# 1. Read the complete file using readLines.
+```{r}
+file_path <- "/cloud/project/LabExercise1/exampleFile.txt"
+lines <- readLines(file_path, warn = FALSE)
+print(lines)
+```
+# 2. Separate the vector of lines into a vector containing comments and a vector containing the data. Hint: use grepl.
+```{r}
+comments <- lines[grepl("^#", lines)]
+print(comments)
+data_lines <- lines[!grepl("^#", lines)]
+print(data_lines)
+```
+# 3. Extract the date from the first comment line and display on the screen “It was created data.”
+```{r}
+date_line <- comments[1]
+print(date_line)
+date <- gsub("# Date: ", "", date_line)
+print(date)
+```
+# 4. Read the data into a matrix as follows.
+# a. Split the character vectors in the vector containing data lines by semicolon (;) using strsplit.
+```{r}
+split_data <- strsplit(data_lines, ";")
+print(split_data)
+```
+# b. Find the maximum number of fields retrieved by split. Append rows that are shorter with NA's.
+```{r}
+max_fields <- max(sapply(split_data, length))
+print(max_fields)
+split_data <- lapply(split_data, function(x) {
+  if (length(x) < max_fields) {
+    c(x, rep(NA, max_fields - length(x)))
+  } else {
+    x
+  }
+})
+print(split_data)
+```
+# c. Use unlist and matrix to transform the data to row-column format.
+```{r}
+data_matrix <- matrix(unlist(split_data), nrow = length(split_data), byrow = TRUE)
+print(data_matrix)
+```
+# d. From comment lines 2-4, extract the names of the fields. Set these as colnames for the matrix you just created.
+```{r}
+field_names <- gsub("# ", "", comments[2:4])
+print(field_names)
+dim(data_matrix)
+
+field_names <- strsplit(field_names, ": ")[[1]]
+print(field_names)
+length_field_names <- length(field_names)
+print(length_field_names)
+
+if (ncol(data_matrix) != length_field_names) {
+  # Handle the mismatch (adjust your code accordingly)
+  print("Number of columns and length of column labels do not match.")
+} else {
+  colnames(data_matrix) <- field_names
+}
