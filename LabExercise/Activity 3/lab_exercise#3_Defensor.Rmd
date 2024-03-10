@@ -1,0 +1,53 @@
+---
+title: "lab_exercise#3"
+author: "Jonash Lor Defensor"
+date: "2024-03-10"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("dplyr")
+#install.packages("rvest")
+#install.packages("polite")
+#install.packages("httr")
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+reviews <- data.frame()
+
+link <- "https://www.imdb.com/title/tt14044212/reviews?ref_=tt_urv"
+session1 <- bow(link, user_agent = "Educational Purpose")
+
+   scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+   }
+   
+    titleMovie <- "Mr. & Mrs. Smith"
+  scrapedTitle <- scrapeNodes("a.title")[1:10]
+  scrapedReviewer <- scrapeNodes(".display-name-link a")[1:10]
+  scrapedReview <- scrapeNodes(".collapsable div.text")[1:10]
+  scrapedDate <- scrapeNodes("div.lister-item:nth-of-type(n+2) span.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+   
+  reviews <- rbind(reviews, data.frame(
+    movie_title = rep(titleMovie, 10),
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating
+  ))
+
+reviews
+
+```
