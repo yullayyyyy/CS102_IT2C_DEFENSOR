@@ -5,15 +5,13 @@ date: "2024-02-10"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE} 
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+SCRAPING FOR NOTEBOOKS
 
-Scraping for Pencils
-
-```{r}
-
+```{r} 
 #install.packages("dplyr")
 #install.packages("rvest")
 #install.packages("polite")
@@ -23,32 +21,23 @@ library(dplyr)
 library(rvest)
 library(polite)
 library(httr)
-```
 
-```{r}
-pencil_products <- data.frame()
-```
 
-```{r}
-pencillink1 = "https://www.amazon.co.uk/s?k=pencil&crid=12INRWS90A0P1&sprefix=pencil%2Caps%2C659&ref=nb_sb_noss_1"
+notebook_products <- data.frame()
 
-session1 <- bow(pencillink1,
-           user_agent = "For Educational Purpose")
-```
+notebooklink1 = "https://www.amazon.co.uk/s?k=notebook&crid=3PE2BSTUHI0D6&qid=1707353799&sprefix=notebo%2Caps%2C277&ref=sr_pg_1"
 
-```{r}
+session1 <- bow(notebooklink1,
+           user_agent = "Educational Purpose")
+
 scrapeNodes <- function(selector){
-scrape(session) %>%
+scrape(session1) %>%
   html_nodes(selector) %>%
   html_text(trim = TRUE)
 }
-```
 
-```{r}
-scrapedCategory <- "Pencil"
-```
+scrapedCategory <- "Notebook"
 
-```{r}
 scrapedName <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
 scrapedName <- scrapedName[1:45]
 
@@ -60,28 +49,23 @@ scrapedRatings <- scrapedRatings[1:45]
 
 scrapedReviews <- scrapeNodes("span.a-size-base.s-underline-text")
 scrapedReviews <- scrapedReviews[1:45]
-```
 
-```{r}
-pencil_products <- rbind(pencil_products, data.frame(category = scrapedCategory,name = scrapedName,
+
+
+notebook_products <- rbind(notebook_products, data.frame(category = scrapedCategory,name = scrapedName,
                     price = scrapedPrice,
                     ratings = scrapedRatings,
                     no_of_reviews = scrapedReviews))
-```
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-```{r}
 
-pencillink2 = "https://www.amazon.co.uk/s?k=pencil&page=2&crid=12INRWS90A0P1&qid=1707581214&sprefix=pencil%2Caps%2C659&ref=sr_pg_2"
-```
-```{r}
+##################
 
-session2 <- bow(pencillink2,
+notebooklink2 = "https://www.amazon.co.uk/s?k=notebook&page=2&crid=3PE2BSTUHI0D6&qid=1707353804&sprefix=notebo%2Caps%2C277&ref=sr_pg_2"
+
+session2 <- bow(notebooklink2,
            user_agent = "For Educational Purpose")
-```
-```{r}
-scrapedCategory2 <- "Pencil"
-```
-```{r}
+
+scrapedCategory2 <- "Notebook"
+
 scrapedName2 <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
 scrapedName2 <- scrapedName2[1:45]
 
@@ -93,23 +77,23 @@ scrapedRatings2 <- scrapedRatings2[1:45]
 
 scrapedReviews2 <- scrapeNodes("span.a-size-base.s-underline-text")
 scrapedReviews2 <- scrapedReviews2[1:45]
-```
-```{r}
 
-pencil_products <- rbind(pencil_products, data.frame(category = scrapedCategory,name = scrapedName,
+
+
+notebook_products <- rbind(notebook_products, data.frame(category = scrapedCategory,name = scrapedName,
                     price = scrapedPrice,
                     ratings = scrapedRatings,
                     no_of_reviews = scrapedReviews))
 
-```
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-```{r}
-pencillink3 = "https://www.amazon.co.uk/s?k=pencil&page=3&crid=12INRWS90A0P1&qid=1707584881&sprefix=pencil%2Caps%2C659&ref=sr_pg_3"
 
-session3 <- bow(pencillink3,
+##################
+
+notebooklink3 = "https://www.amazon.co.uk/s?k=notebook&page=3&crid=3PE2BSTUHI0D6&qid=1707354306&sprefix=notebo%2Caps%2C277&ref=sr_pg_3"
+
+session3 <- bow(notebooklink3,
            user_agent = "For Educational Purpose")
 
-scrapedCategory3 <- "Pencil"
+scrapedCategory3 <- "Notebook"
 
 scrapedName3 <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
 scrapedName3 <- scrapedName3[1:45]
@@ -125,141 +109,149 @@ scrapedReviews3 <- scrapedReviews3[1:45]
 
 
 
-pencil_products <- rbind(pencil_products, data.frame(category = scrapedCategory,name = scrapedName,
+notebook_products <- rbind(notebook_products, data.frame(category = scrapedCategory,name = scrapedName,
                     price = scrapedPrice,
                     ratings = scrapedRatings,
                     no_of_reviews = scrapedReviews))
 
-pencil_products <- pencil_products[1:100,]
+notebook_products <- notebook_products[1:100,]
+#write.csv(notebook_products,"notebook_products.csv")
 
+#View(notebook_products)
 
-#View(pencil_products)
+################## 
 ```
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SCRAPING FOR PENCILS
+
 ```{r}
+
 library(dplyr)
 library(rvest)
 library(polite)
 library(httr)
-```
-```{r}
 
-sharpener_products <- data.frame()
 
-sharpenerlink1 = "https://www.amazon.co.uk/s?k=sharpener&crid=GWWKI0LKL0N9&sprefix=sharpener%2Caps%2C481&ref=nb_sb_noss_1"
+pencil_products <- data.frame()
 
-session4 <- bow(sharpenerlink1,
-           user_agent = "For Educational Purpose")
+pencillink1_1_1 = "https://www.amazon.co.uk/s?k=pencil&crid=ROFYFPYBSIDI&qid=1707354893&sprefix=penicl%2Caps%2C273&ref=sr_pg_1"
+
+session4_4_4 <- bow(pencillink1_1_1,
+           user_agent = "Education")
 
 scrapeNodes <- function(selector){
-scrape(session) %>%
+scrape(session4_4_4) %>%
   html_nodes(selector) %>%
   html_text(trim = TRUE)
 }
 
-scrapedCategory4 <- "Sharpener"
+scrapedCategory4 <- "Pencil"
 
-scrapedsharpenerName <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
-scrapedsharpenerName <- scrapedsharpenerName[1:45]
+scrapedpencilName <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
+scrapedpencilName <- scrapedpencilName[1:45]
 
-scrapedsharpenerPrice <- scrapeNodes("span.a-offscreen")
-scrapedsharpenerPrice <- scrapedsharpenerPrice[1:45]
+scrapedpencilPrice <- scrapeNodes("span.a-offscreen")
+scrapedpencilPrice <- scrapedpencilPrice[1:45]
 
-scrapedsharpenerRatings <- scrapeNodes("span.a-icon-alt")
-scrapedsharpenerRatings <- scrapedsharpenerRatings[1:45]
+scrapedpencilRatings <- scrapeNodes("span.a-icon-alt")
+scrapedpencilRatings <- scrapedpencilRatings[1:45]
 
-scrapedsharpenerReviews <- scrapeNodes("span.a-size-base.s-underline-text")
-scrapedsharpenerReviews <- scrapedsharpenerReviews[1:45]
+scrapedpencilReviews <- scrapeNodes("span.a-size-base.s-underline-text")
+scrapedpencilReviews <- scrapedpencilReviews[1:45]
 
 
 
-sharpener_products <- rbind(sharpener_products, data.frame(category = scrapedCategory4,name = scrapedsharpenerName,
-                    price = scrapedsharpenerPrice,
-                    ratings = scrapedsharpenerRatings,
-                    no_of_reviews = scrapedsharpenerReviews))
-```
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-```{r}
-sharpenerlink2 = "https://www.amazon.co.uk/s?k=sharpener&page=2&crid=GWWKI0LKL0N9&qid=1707586161&sprefix=sharpener%2Caps%2C481&ref=sr_pg_2"
+pencil_products <- rbind(pencil_products, data.frame(category = scrapedCategory4,name = scrapedpencilName,
+                    price = scrapedpencilPrice,
+                    ratings = scrapedpencilRatings,
+                    no_of_reviews = scrapedpencilReviews))
 
-session5 <- bow(sharpenerlink2,
-           user_agent = "For Educational Purpose")
+##################
+
+pencillink2_2_2 = "https://www.amazon.co.uk/s?k=pencil&crid=ROFYFPYBSIDI&qid=1707354893&sprefix=penicl%2Caps%2C273&ref=sr_pg_2"
+
+session5_5_5 <- bow(pencillink2_2_2,
+           user_agent = "Educational Purpose")
 
 scrapeNodes <- function(selector){
-scrape(session) %>%
+scrape(session5_5_5) %>%
   html_nodes(selector) %>%
   html_text(trim = TRUE)
 }
 
-scrapedCategory5 <- "Sharpener"
+scrapedCategory5 <- "Pencil"
 
-scrapedsharpenerName2 <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
-scrapedsharpenerName2 <- scrapedsharpenerName2[1:45]
+scrapedpencilName2 <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
+scrapedpencilName2 <- scrapedpencilName2[1:45]
 
-scrapedsharpenerPrice2 <- scrapeNodes("span.a-offscreen")
-scrapedsharpenerPrice2 <- scrapedsharpenerPrice2[1:45]
+scrapedpencilPrice2 <- scrapeNodes("span.a-offscreen")
+scrapedpencilPrice2 <- scrapedpencilPrice2[1:45]
 
-scrapedsharpenerRatings2 <- scrapeNodes("span.a-icon-alt")
-scrapedsharpenerRatings2 <- scrapedsharpenerRatings2[1:45]
+scrapedpencilRatings2 <- scrapeNodes("span.a-icon-alt")
+scrapedpencilRatings2 <- scrapedpencilRatings2[1:45]
 
-scrapedsharpenerReviews2 <- scrapeNodes("span.a-size-base.s-underline-text")
-scrapedsharpenerReviews2 <- scrapedsharpenerReviews2[1:45]
+scrapedpencilReviews2 <- scrapeNodes("span.a-size-base.s-underline-text")
+scrapedpencilReviews2 <- scrapedpencilReviews2[1:45]
 
 
 
-sharpener_products <- rbind(sharpener_products, data.frame(category = scrapedCategory5,name = scrapedsharpenerName2,
-                    price = scrapedsharpenerPrice2,
-                    ratings = scrapedsharpenerRatings2,
-                    no_of_reviews = scrapedsharpenerReviews2))
-```
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-```{r}
-sharpenerlink3 = "https://www.amazon.co.uk/s?k=sharpener&page=3&crid=GWWKI0LKL0N9&qid=1707586828&sprefix=sharpener%2Caps%2C481&ref=sr_pg_3"
+pencil_products <- rbind(pencil_products, data.frame(category = scrapedCategory5,name = scrapedpencilName2,
+                    price = scrapedpencilPrice2,
+                    ratings = scrapedpencilRatings2,
+                    no_of_reviews = scrapedpencilReviews2))
 
-session6 <- bow(sharpenerlink3,
-           user_agent = "For Educational Purpose")
+
+##################
+
+pencillink3_3_3 = "https://www.amazon.co.uk/s?k=pencil&crid=ROFYFPYBSIDI&qid=1707354893&sprefix=penicl%2Caps%2C273&ref=sr_pg_3"
+
+session6_6_6 <- bow(pencillink3_3_3,
+           user_agent = "Educational Purpose")
 
 scrapeNodes <- function(selector){
-scrape(session) %>%
+scrape(session6_6_6) %>%
   html_nodes(selector) %>%
   html_text(trim = TRUE)
 }
 
-scrapedCategory6 <- "Sharpener"
+scrapedCategory6 <- "Pencil"
 
-scrapedsharpenerName3 <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
-scrapedsharpenerName3 <- scrapedpencilName3[1:45]
+scrapedpencilName3 <- scrapeNodes("h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4")
+scrapedpencilName3 <- scrapedpencilName3[1:45]
 
-scrapedsharpenerPrice3 <- scrapeNodes("span.a-offscreen")
-scrapedsharpenerPrice3 <- scrapedsharpenerPrice3[1:45]
+scrapedpencilPrice3 <- scrapeNodes("span.a-offscreen")
+scrapedpencilPrice3 <- scrapedpencilPrice3[1:45]
 
-scrapedsharpenerRatings3 <- scrapeNodes("span.a-icon-alt")
-scrapedsharpenerRatings3 <- scrapedsharpenerRatings3[1:45]
+scrapedpencilRatings3 <- scrapeNodes("span.a-icon-alt")
+scrapedpencilRatings3 <- scrapedpencilRatings3[1:45]
 
-scrapedsharpenerReviews3 <- scrapeNodes("span.a-size-base.s-underline-text")
-scrapedsharpenerReviews3 <- scrapedsharpenerReviews3[1:45]
-
-
-
-sharpener_products <- rbind(sharpener_products, data.frame(category = scrapedCategory5,name = scrapedsharpenerName2,
-                    price = scrapedsharpenerPrice2,
-                    ratings = scrapedsharpenerRatings2,
-                    no_of_reviews = scrapedsharpenerReviews2))
-
-sharpener_products <- sharpener_products[1:100,]
+scrapedpencilReviews3 <- scrapeNodes("span.a-size-base.s-underline-text")
+scrapedpencilReviews3 <- scrapedpencilReviews3[1:45]
 
 
-#View(sharpener_products)
-```
-Merging Two Products
-```{r}
-scraped_products <- rbind(pencil_products, sharpener_products)
-View(scraped_products)
+
+pencil_products <- rbind(pencil_products, data.frame(category = scrapedCategory5,name = scrapedpencilName2,
+                    price = scrapedpencilPrice2,
+                    ratings = scrapedpencilRatings2,
+                    no_of_reviews = scrapedpencilReviews2))
+
+pencil_products <- pencil_products[1:100,]
+write.csv(pencil_products,"pencil_products.csv")
+
+#View(pencil_products)
 ```
 
+MERGING TWO PRODUCTS
+
+```{r} 
+scraped_products <- rbind(notebook_products, pencil_products)
+#write.csv(scraped_products, "byCategory.csv")
+#View(scraped_products)
+```
 10 PRODUCTS
 
 product1
+
 ```{r}
 
 library(dplyr)
@@ -269,10 +261,12 @@ library(httr)
 library(selectr)
 
 product1 = data.frame()
-scrapedCategory <- "Pencil"
-~~~
+scrapedCategory <- "Notebook"
 
-  link = "https://www.amazon.co.uk/product-reviews/B09RB6YJLL/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+
+###
+
+  link = "https://www.amazon.co.uk/Blue-Acorn-Spiral-Bound-Sketchbook/product-reviews/B0CH3KXXSN/ref=cm_cr_getr_d_paging_btm_prev_1?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -307,14 +301,14 @@ scrapedCategory <- "Pencil"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-```
-~~~
-```{r}
-link2 = "https://www.amazon.co.uk/product-reviews/B09RB6YJLL/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      
+      Sys.sleep(5)
+######
+
+      link2 = "https://www.amazon.co.uk/Blue-Acorn-Spiral-Bound-Sketchbook/product-reviews/B0CH3KXXSN/ref=cm_cr_getr_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -337,14 +331,14 @@ link2 = "https://www.amazon.co.uk/product-reviews/B09RB6YJLL/ref=cm_cr_arp_d_pag
                           review = scrapedReview2,
                           date = scrapedDate2,
                          ratings = scrapedprodRating2))
-```
-~~~
-```{r}
-  link3 = "https://www.amazon.co.uk/product-reviews/B09RB6YJLL/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      Sys.sleep(5)
+      
+      ####
+      
+      link3 = "https://www.amazon.co.uk/Blue-Acorn-Spiral-Bound-Sketchbook/product-reviews/B0CH3KXXSN/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -368,10 +362,14 @@ link2 = "https://www.amazon.co.uk/product-reviews/B09RB6YJLL/ref=cm_cr_arp_d_pag
                           review = scrapedReview3,
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
+      Sys.sleep(5)
       
-View(product1)
+#View(product1)
+write.csv(product1,"product1.csv")
+
 ```
 product2
+
 ```{r}
 
 library(dplyr)
@@ -381,10 +379,12 @@ library(httr)
 library(selectr)
 
 product2 = data.frame()
-scrapedCategory <- "Pencil"
+scrapedCategory <- "Notebook"
 
-~~~
- link = "https://www.amazon.co.uk/product-reviews/B009FYMXCU/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+
+###
+
+  link = "https://www.amazon.co.uk/Oxford-Notebook-Subject-College-63756/product-reviews/B08VF9B772/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -419,14 +419,13 @@ scrapedCategory <- "Pencil"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-```
-~~~
-```{r}
-link2 = "https://www.amazon.co.uk/product-reviews/B009FYMXCU/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      Sys.sleep(5)
+######
+
+      link2 = "https://www.amazon.co.uk/Oxford-Notebook-Subject-College-63756/product-reviews/B08VF9B772/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -449,14 +448,14 @@ link2 = "https://www.amazon.co.uk/product-reviews/B009FYMXCU/ref=cm_cr_arp_d_pag
                           review = scrapedReview2,
                           date = scrapedDate2,
                          ratings = scrapedprodRating2))
-```
-~~~
-```{r}
- link3 = "https://www.amazon.co.uk/product-reviews/B009FYMXCU/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      
+      Sys.sleep(5)
+      ####
+      
+      link3 = "https://www.amazon.co.uk/Oxford-Notebook-Subject-College-63756/product-reviews/B08VF9B772/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -480,11 +479,12 @@ link2 = "https://www.amazon.co.uk/product-reviews/B009FYMXCU/ref=cm_cr_arp_d_pag
                           review = scrapedReview3,
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
-      
-View(product2)
+      Sys.sleep(5)
+#View(product2)
+write.csv(product2,"product2.csv")
 ```
-
 product3
+
 ```{r}
 
 library(dplyr)
@@ -494,11 +494,12 @@ library(httr)
 library(selectr)
 
 product3 = data.frame()
-scrapedCategory <- "Pencil"
+scrapedCategory <- "Notebook"
 
-~~~
-  
-  link = "https://www.amazon.co.uk/product-reviews/B093L3F7GN/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+
+###
+
+  link = "https://www.amazon.co.uk/Leitz-Covered-Notebook-Squared-Sheets/product-reviews/B073QYZD5Q/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -533,13 +534,13 @@ scrapedCategory <- "Pencil"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-~~~
+      Sys.sleep(5)
+######
 
-      link2 = "https://www.amazon.co.uk/product-reviews/B093L3F7GN/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      link2 = "https://www.amazon.co.uk/Leitz-Covered-Notebook-Squared-Sheets/product-reviews/B073QYZD5Q/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -563,14 +564,13 @@ scrapedCategory <- "Pencil"
                           date = scrapedDate2,
                          ratings = scrapedprodRating2))
       
+      Sys.sleep(5)
+      ####
       
-~~~
-      
-      link3 = "https://www.amazon.co.uk/product-reviews/B093L3F7GN/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      link3 = "https://www.amazon.co.uk/Leitz-Covered-Notebook-Squared-Sheets/product-reviews/B073QYZD5Q/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -595,11 +595,13 @@ scrapedCategory <- "Pencil"
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
       
-View(product3)
+      Sys.sleep(5)
+#View(product3)
+write.csv(product3,"product3.csv")
 ```
 product4
-```{r}
 
+```{r}
 library(dplyr)
 library(rvest)
 library(polite)
@@ -607,12 +609,12 @@ library(httr)
 library(selectr)
 
 product4 = data.frame()
-scrapedCategory <- "Pencil"
+scrapedCategory <- "Notebook"
 
 
-~~~
+###
 
-  link = "https://www.amazon.co.uk/product-reviews/B071JM699B/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+  link = "https://www.amazon.co.uk/Oxford-My-Notes-Wirebound-Perforated/product-reviews/B00BI5N0GW/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -647,13 +649,14 @@ scrapedCategory <- "Pencil"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-~~~
+      
+      Sys.sleep(5)
+######
 
-      link2 = "https://www.amazon.co.uk/product-reviews/B071JM699B/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      link2 = "https://www.amazon.co.uk/Oxford-My-Notes-Wirebound-Perforated/product-reviews/B00BI5N0GW/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -678,13 +681,13 @@ scrapedCategory <- "Pencil"
                          ratings = scrapedprodRating2))
       
       
-~~~
+      Sys.sleep(5)
+      ####
       
-      link3 = "https://www.amazon.co.uk/product-reviews/B071JM699B/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      link3 = "https://www.amazon.co.uk/Oxford-My-Notes-Wirebound-Perforated/product-reviews/B00BI5N0GW/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -709,9 +712,12 @@ scrapedCategory <- "Pencil"
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
       
-View(product4)
+      Sys.sleep(5)
+#View(product4)
+write.csv(product4,"product4.csv")      
 ```
 product5
+
 ```{r}
 
 library(dplyr)
@@ -721,12 +727,12 @@ library(httr)
 library(selectr)
 
 product5 = data.frame()
-scrapedCategory <- "Pencil"
+scrapedCategory <- "Notebook"
 
 
 ###
 
-  link = "https://www.amazon.co.uk/product-reviews/B003V8BIFE/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+  link = "https://www.amazon.co.uk/Amazon-Basics-Casebound-Notebook-21x13-3x1-6/product-reviews/B01DN8TB5U/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -761,13 +767,14 @@ scrapedCategory <- "Pencil"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-~~~
+      
+      Sys.sleep(5)
+######
 
-      link2 = "https://www.amazon.co.uk/product-reviews/B003V8BIFE/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      link2 = "https://www.amazon.co.uk/Amazon-Basics-Casebound-Notebook-21x13-3x1-6/product-reviews/B01DN8TB5U/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -792,13 +799,13 @@ scrapedCategory <- "Pencil"
                          ratings = scrapedprodRating2))
       
       
- ~~~
+      Sys.sleep(5)
+      ####
       
-      link3 = "https://www.amazon.co.uk/product-reviews/B003V8BIFE/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      link3 = "https://www.amazon.co.uk/Amazon-Basics-Casebound-Notebook-21x13-3x1-6/product-reviews/B01DN8TB5U/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -822,12 +829,14 @@ scrapedCategory <- "Pencil"
                           review = scrapedReview3,
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
+      Sys.sleep(5)
       
-View(product5)
+#View(product5)
+#write.csv(product5,"product5.csv")  
 ```
 product6
-```{r}
 
+```{r}
 library(dplyr)
 library(rvest)
 library(polite)
@@ -835,12 +844,12 @@ library(httr)
 library(selectr)
 
 product6 = data.frame()
-scrapedCategory <- "Sharpener"
+scrapedCategory <- "Pencil"
 
 
-~~~
+###
 
-  link = "https://www.amazon.co.uk/product-reviews/B00XJDMM2O/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+  link = "https://www.amazon.co.uk/STAEDTLER-121-2-BK5D-Noris-pencils/product-reviews/B093L3F7GN/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -875,13 +884,12 @@ scrapedCategory <- "Sharpener"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-~~~
+######
 
-      link2 = "https://www.amazon.co.uk/product-reviews/B00XJDMM2O/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      link2 = "https://www.amazon.co.uk/STAEDTLER-121-2-BK5D-Noris-pencils/product-reviews/B093L3F7GN/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -906,13 +914,12 @@ scrapedCategory <- "Sharpener"
                          ratings = scrapedprodRating2))
       
       
-~~~
+      ####
       
-      link3 = "https://www.amazon.co.uk/product-reviews/B00XJDMM2O/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      link3 = "https://www.amazon.co.uk/STAEDTLER-121-2-BK5D-Noris-pencils/product-reviews/B093L3F7GN/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -937,9 +944,13 @@ scrapedCategory <- "Sharpener"
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
       
-View(product6)
+      Sys.sleep(5)
+      
+#View(product6)
+      write.csv(product6,"product6.csv")  
 ```
 product7
+
 ```{r}
 
 library(dplyr)
@@ -949,12 +960,12 @@ library(httr)
 library(selectr)
 
 product7 = data.frame()
-scrapedCategory <- "Sharpener"
+scrapedCategory <- "Pencil"
 
 
-~~~
+###
 
-  link = "https://www.amazon.co.uk/product-reviews/B000KJMM5C/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+  link = "https://www.amazon.co.uk/STAEDTLER-121-2-BK5D-Noris-pencils/product-reviews/B093L3F7GN/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -989,13 +1000,13 @@ scrapedCategory <- "Sharpener"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-~~~
+      Sys.sleep(5)
+######
 
-      link2 = "https://www.amazon.co.uk/product-reviews/B000KJMM5C/ref=cm_cr_getr_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      link2 = "https://www.amazon.co.uk/STAEDTLER-121-2-BK5D-Noris-pencils/product-reviews/B093L3F7GN/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -1019,14 +1030,13 @@ scrapedCategory <- "Sharpener"
                           date = scrapedDate2,
                          ratings = scrapedprodRating2))
       
+      Sys.sleep(5)
+      ####
       
-~~~
-      
-      link3 = "https://www.amazon.co.uk/product-reviews/B000KJMM5C/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      link3 = "https://www.amazon.co.uk/STAEDTLER-121-2-BK5D-Noris-pencils/product-reviews/B093L3F7GN/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -1050,10 +1060,13 @@ scrapedCategory <- "Sharpener"
                           review = scrapedReview3,
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
+      Sys.sleep(5)
       
-View(product7)
+#View(product7)
+write.csv(product7,"product7.csv")
 ```
 product8
+
 ```{r}
 
 library(dplyr)
@@ -1063,11 +1076,12 @@ library(httr)
 library(selectr)
 
 product8 = data.frame()
-scrapedCategory <- "Sharpener"
+scrapedCategory <- "Pencil"
 
-~~~
 
-  link = "https://www.amazon.co.uk/product-reviews/B00ENI2G48/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+###
+
+  link = "https://www.amazon.co.uk/AmazonBasics-Presharpened-Wood-Cased-Pencils/product-reviews/B071JM699B/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -1102,13 +1116,14 @@ scrapedCategory <- "Sharpener"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-~~~
+      
+      Sys.sleep(5)
+######
 
-      link2 = "https://www.amazon.co.uk/product-reviews/B00ENI2G48/ref=cm_cr_getr_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      link2 = "https://www.amazon.co.uk/AmazonBasics-Presharpened-Wood-Cased-Pencils/product-reviews/B071JM699B/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -1132,14 +1147,14 @@ scrapedCategory <- "Sharpener"
                           date = scrapedDate2,
                          ratings = scrapedprodRating2))
       
+      Sys.sleep(5)
       
-~~~
+      ####
       
-      link3 = "https://www.amazon.co.uk/product-reviews/B00ENI2G48/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      link3 = "https://www.amazon.co.uk/AmazonBasics-Presharpened-Wood-Cased-Pencils/product-reviews/B071JM699B/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -1163,12 +1178,14 @@ scrapedCategory <- "Sharpener"
                           review = scrapedReview3,
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
+      Sys.sleep(5)
       
-View(product8)
+#View(product8)
+write.csv(product8,"product8.csv")
 ```
 product9
-```{r}
 
+```{r}
 library(dplyr)
 library(rvest)
 library(polite)
@@ -1176,12 +1193,12 @@ library(httr)
 library(selectr)
 
 product9 = data.frame()
-scrapedCategory <- "Sharpener"
+scrapedCategory <- "Pencil"
 
 
-~~~
+###
 
-  link = "https://www.amazon.co.uk/product-reviews/B0009WFNY2/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+  link = "https://www.amazon.co.uk/Ecolutions-Evolution-655%C3%82-HB-Pencil-Eraser/product-reviews/B000WH0SSA/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -1216,13 +1233,13 @@ scrapedCategory <- "Sharpener"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-~~~
+      Sys.sleep(5)
+######
 
-      link2 = "https://www.amazon.co.uk/product-reviews/B0009WFNY2/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      link2 = "https://www.amazon.co.uk/Ecolutions-Evolution-655%C3%82-HB-Pencil-Eraser/product-reviews/B000WH0SSA/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -1246,14 +1263,13 @@ scrapedCategory <- "Sharpener"
                           date = scrapedDate2,
                          ratings = scrapedprodRating2))
       
+      Sys.sleep(5)
+      ####
       
-~~~
-      
-      link3 = "https://www.amazon.co.uk/product-reviews/B0009WFNY2/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      link3 = "https://www.amazon.co.uk/Ecolutions-Evolution-655%C3%82-HB-Pencil-Eraser/product-reviews/B000WH0SSA/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -1278,11 +1294,13 @@ scrapedCategory <- "Sharpener"
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
       
-View(product9)
+      Sys.sleep(5)
+#View(product9)
+write.csv(product9,"product9.csv")
 ```
 product10
-```{r}
 
+```{r}
 library(dplyr)
 library(rvest)
 library(polite)
@@ -1290,12 +1308,12 @@ library(httr)
 library(selectr)
 
 product10 = data.frame()
-scrapedCategory <- "Sharpener"
+scrapedCategory <- "Pencil"
 
 
-~~~
+###
 
-  link = "https://www.amazon.co.uk/product-reviews/B00OPQZ2A8/ref=cm_cr_arp_d_viewopt_sr?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=1#reviews-filter-bar"
+  link = "https://www.amazon.co.uk/BIC-Evolution-Original-Graphite-Pencils/product-reviews/B003V8BIFE/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=1"
   
       sessionProd1 <- bow(link,
                user_agent = "For Educational Purpose")
@@ -1330,13 +1348,14 @@ scrapedCategory <- "Sharpener"
                           review = scrapedReview,
                           date = scrapedDate,
                          ratings = scrapedprodRating))
-~~~
+      
+      Sys.sleep(5)
+######
 
-      link2 = "https://www.amazon.co.uk/product-reviews/B00OPQZ2A8/ref=cm_cr_getr_d_paging_btm_next_2?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=2#reviews-filter-bar"
+      link2 = "https://www.amazon.co.uk/BIC-Evolution-Original-Graphite-Pencils/product-reviews/B003V8BIFE/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=2"
   
   sessionProd2 <- bow(link2,
                user_agent = "For Educational Purpose")
-
 
       scrapedReviewer2 <- scrapeNodes("span.a-profile-name")
       scrapedReviewer2 <- scrapedReviewer2[1:10]
@@ -1361,13 +1380,13 @@ scrapedCategory <- "Sharpener"
                          ratings = scrapedprodRating2))
       
       
-~~~
+      Sys.sleep(5)
+      ####
       
-      link3 = "https://www.amazon.co.uk/product-reviews/B00OPQZ2A8/ref=cm_cr_getr_d_paging_btm_next_3?ie=UTF8&filterByStar=all_stars&reviewerType=all_reviews&pageNumber=3#reviews-filter-bar"
+      link3 = "https://www.amazon.co.uk/BIC-Evolution-Original-Graphite-Pencils/product-reviews/B003V8BIFE/ref=cm_cr_arp_d_paging_btm_next_2?ie=UTF8&reviewerType=all_reviews&pageNumber=3"
   
   sessionProd3 <- bow(link3,
                user_agent = "For Educational Purpose")
-
 
       
       scrapedReviewer3 <- scrapeNodes("span.a-profile-name")
@@ -1392,16 +1411,13 @@ scrapedCategory <- "Sharpener"
                           date = scrapedDate3,
                          ratings = scrapedprodRating3))
       
-View(product10)
+      Sys.sleep(5)
+#View(product10)
+write.csv(product10,"product10.csv")
 ```
 
 ```{r}
 
 all_reviews <- rbind(product1, product2, product3, product4, product5, product6, product7, product8, product9, product10)
-View(all_reviews)
-
-
-#install.packages("usethis")
-library(usethis)
+#all_reviews
 ```
-
